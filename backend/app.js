@@ -1,6 +1,9 @@
 import express from 'express';
 import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
+import { connectDB } from './config/mongodb/index.js';
+
+await connectDB();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
