@@ -1,0 +1,15 @@
+{
+  "name": "one-line-story-backend",
+  "version": "0.0.0",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "node --watch app.js"
+  },
+  "author": "Tony Farha",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
