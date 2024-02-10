@@ -1,14 +1,20 @@
 import express from 'express';
-
+import path, { dirname } from 'path';
+import { fileURLToPath } from 'url';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 app.get('/', (req, res) => {
-
-    res.send('Backend works!')
-
-})
+    if (process.env.ENV === 'PROD') {
+        app.use(express.static(path.join(__dirname, '../frontend/dist')));
+        return res.sendFile(path.resolve(__dirname, '../', 'frontend', 'dist', 'index.html'));
+    }
+    const FRONT_END_URI = `${process.env.SERVER_URI}:${process.env.FRONT_END_PORT}`;
+    return res.send(`Your app is currently set to the DEV environment. Please switch it to PROD to access the frontend, or you can directly visit the frontend at: <a target="_blank" href="${FRONT_END_URI}">${FRONT_END_URI}</a>`)
+});
 
 app.listen(PORT, () => {
     console.log(`⚡Server is running on port ${PORT}`);

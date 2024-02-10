@@ -1,0 +1,20 @@
+version: '3.8'
+services:
+  node-app:
+    build:
+      context: ..
+      dockerfile: ./docker/Dockerfile
+    container_name: ${APP_NAME}-${ENV}-CONTAINER
+    restart: unless-stopped
+    ports:
+      - "${PORT}:${PORT}"
+      - "${FRONT_END_PORT}:${FRONT_END_PORT}"
+    volumes:
+      - ../:/app
+    command: /bin/bash -c "chmod +x /app/docker/run.sh && /app/docker/run.sh ${ENV}"
+    environment:
+      - ENV=${ENV}
+      - PORT=${PORT}
+      - FRONT_END_PORT=${FRONT_END_PORT}
+      - VITE_SERVER_EXPRESS_URI=${VITE_SERVER_EXPRESS_URI}
+      - SERVER_URI=${SERVER_URI}
