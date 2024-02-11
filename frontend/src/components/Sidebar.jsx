@@ -7,6 +7,8 @@ import { tokens } from "../theme";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import { useAuthContext } from "../contexts";
 import LogoutIcon from '@mui/icons-material/Logout';
+import { version } from '../../../package.json';
+import Divider from '@mui/material/Divider';
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -122,7 +124,8 @@ const Sidebar = () => {
             </Box>
           )}
 
-          <Box paddingLeft={isCollapsed ? undefined : "10%"}>
+          <Box>
+            <Divider />
             <LogoutItem
               icon={<LogoutIcon />}
               title='Logout'
@@ -130,6 +133,17 @@ const Sidebar = () => {
             />
           </Box>
         </Menu>
+        {!isCollapsed && (
+          <Box sx={{ m: 'auto 0 20px 0', pt: '25px' }}>
+            <Typography
+              variant="p"
+              color={colors.grey[300]}
+              sx={{ m: "0 0 0 20px" }}
+            >
+              Version {version}
+            </Typography>
+          </Box>
+        )}
       </ProSidebar>
     </Box>
   );
