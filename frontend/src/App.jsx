@@ -4,9 +4,10 @@ import Sidebar from "./components/Sidebar";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
 import { AdminRoutes, Protect } from "./utils";
-import { useAuthContext } from "./contexts";
+import { UserContextProvider, useAuthContext } from "./contexts";
 import { NotFound } from "./pages/NotFound";
 import { Login } from "./pages";
+import { EditUser, NewUser, Users } from "./pages/users";
 
 function App() {
     const [theme, colorMode] = useMode();
@@ -30,7 +31,11 @@ function App() {
 
                                 <Route element={<AdminRoutes />}>
 
-                                    <Route path="/admin" element={<></>} />
+                                    <Route path="users" element={<UserContextProvider />}>
+                                        <Route path="/users" element={<Users />} />
+                                        <Route path="/users/new" element={<NewUser />} />
+                                        <Route path="/users/:id" element={<EditUser />} />
+                                    </Route>
 
                                 </Route>
 
