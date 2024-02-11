@@ -4,6 +4,7 @@ import { fileURLToPath } from 'url';
 import { connectDB } from './config/mongodb/index.js';
 import { errorHandler } from './middlewares/ErrorHandlerMiddleware.js';
 import { apiRouter } from './routes/index.js';
+import cors from 'cors';
 
 await connectDB();
 
@@ -14,6 +15,10 @@ const __dirname = dirname(__filename);
 
 app.use(errorHandler);
 app.use(express.json());
+app.use(cors({
+    origin: '*'
+}));
+
 app.use('/api', apiRouter);
 
 app.get('/', (req, res) => {

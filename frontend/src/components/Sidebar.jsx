@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import "react-pro-sidebar/dist/css/styles.css";
 import { tokens } from "../theme";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
+import { useAuthContext } from "../contexts";
+import LogoutIcon from '@mui/icons-material/Logout';
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -24,11 +26,29 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
   );
 };
 
+const LogoutItem = ({ title, icon, logout }) => {
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
+  return (
+    <MenuItem
+      style={{
+        color: colors.grey[100],
+      }}
+      onClick={logout}
+      icon={icon}
+    >
+      <Typography>{title}</Typography>
+    </MenuItem>
+  );
+};
+
 const Sidebar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("");
+
+  const { user, logout } = useAuthContext();
 
   return (
     <Box
@@ -93,17 +113,21 @@ const Sidebar = () => {
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
                 >
-                  John Doe
+                  {user.firstname}
                 </Typography>
                 <Typography variant="h5" color={colors.greenAccent[500]}>
-                  Admin
+                  {user.role.toUpperCase()}
                 </Typography>
               </Box>
             </Box>
           )}
 
           <Box paddingLeft={isCollapsed ? undefined : "10%"}>
-
+            <LogoutItem
+              icon={<LogoutIcon />}
+              title='Logout'
+              logout={logout}
+            />
           </Box>
         </Menu>
       </ProSidebar>
