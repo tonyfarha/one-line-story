@@ -2,6 +2,8 @@ import express from 'express';
 import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { connectDB } from './config/mongodb/index.js';
+import { errorHandler } from './middlewares/ErrorHandlerMiddleware.js';
+import { apiRouter } from './routes/index.js';
 
 await connectDB();
 
@@ -9,6 +11,10 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+
+app.use(errorHandler);
+app.use(express.json());
+app.use('/api', apiRouter);
 
 app.get('/', (req, res) => {
     if (process.env.ENV === 'PROD') {
