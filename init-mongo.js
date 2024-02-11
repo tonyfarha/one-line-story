@@ -7,7 +7,7 @@ db.createUser({
 });
 
 
-const password = "$2a$10$IrVMDeGzYKlmPeHe4R/h6ebyihUtqfOU9J7pAPeu2mIb4AXWIhnWW"; // 1234
+const password = process.env.MOCK_USERS_PASSWORD;
 
 db.users.insertMany([
   { firstname: "Ross", lastname: "Geller", email: "ross.geller@email.com", password, role: 'admin' },
