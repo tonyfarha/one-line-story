@@ -27,6 +27,17 @@ This app has been tested on the following platforms:
 
 - Windows Subsystem for Linux (WSL)
 
+## Initial Mock Users
+
+When you first get the app up and running, a set of mock users are prepared to help you get started. All users are configured with the password `1234`. Here's the list:
+
+- **Ross Geller** - Admin (`ross.geller@email.com`)
+- **Monica Geller** (`monica.geller@email.com`)
+- **Chandler Bing** (`chandler.bing@email.com`)
+- **Joey Tribbiani** (`joey.tribbiani@email.com`)
+- **Phoebe Buffay** (`phoebe.buffay@email.com`)
+- **Rachel Green** (`rachel.green@email.com`)
+
 ## Troubleshooting Dependencies
 
 If you encounter issues with installing new dependencies in your project, you can use the following script to change ownership of directories:
