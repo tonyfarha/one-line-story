@@ -34,7 +34,7 @@ export const createUser = asyncHandler(async (req, res) => {
     });
 
     if (user) {
-        return res.status(201).json({ msg: 'User created successfuly' });
+        return res.status(201).json({ msg: 'User created successfully' });
     } else {
         return res.status(400).json({ msg: 'Invalid user data' });
     }
@@ -107,7 +107,7 @@ export const updateUser = asyncHandler(async (req, res) => {
     });
 
     if (updated) {
-        return res.status(200).json({ msg: 'User updated successfuly' });
+        return res.status(200).json({ msg: 'User updated successfully' });
     } else {
         return res.status(400).json({ msg: 'Invalid user data' });
     }
@@ -124,7 +124,7 @@ export const deleteUser = asyncHandler(async (req, res) => {
 
     await User.deleteOne({ _id: id });
 
-    return res.status(200).json({ msg: 'User deleted successfuly' });
+    return res.status(200).json({ msg: 'User deleted successfully' });
 
 })
 
