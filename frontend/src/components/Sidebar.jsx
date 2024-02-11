@@ -10,6 +10,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { version } from '../../../package.json';
 import Divider from '@mui/material/Divider';
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
+import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -126,6 +127,21 @@ const Sidebar = () => {
           )}
 
           <Box>
+            <Typography
+              variant="h6"
+              color={colors.grey[300]}
+              sx={{ m: "15px 0 5px 20px" }}
+            >
+              Stories
+            </Typography>
+
+            <Item
+              title="Stories"
+              to="/stories"
+              icon={<AutoStoriesIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
             {isAdmin && (
               <>
                 <Typography

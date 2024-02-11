@@ -11,6 +11,10 @@ export const createStory = asyncHandler(async (req, res) => {
         return res.status(400).json({ msg: 'Please add all fields' });
     }
 
+    if (amountOfSentences < 1) {
+        return res.status(400).json({ msg: 'Invalid story data' });
+    }
+
     // Create story
     const story = await Story.create({
         title,
@@ -31,7 +35,7 @@ export const createStory = asyncHandler(async (req, res) => {
 // @access  Private
 export const getStories = asyncHandler(async (req, res) => {
 
-    const stories = await Story.find({});
+    const stories = await Story.find({}).populate({ path: 'createdFrom', select: 'firstname lastname'});
 
     if (stories) {
         return res.status(200).json(stories);
@@ -72,6 +76,10 @@ export const updateStory = asyncHandler(async (req, res) => {
 
     if (!title || !amountOfSentences) {
         return res.status(400).json({ msg: 'Please add all fields' });
+    }
+
+    if (amountOfSentences < 1) {
+        return res.status(400).json({ msg: 'Invalid story data' });
     }
 
     // Update story

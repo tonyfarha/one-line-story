@@ -36,4 +36,4 @@ export const UserContextProvider = () => {
     )
 }
 
-export const useUserContext = () => useContext(UserContext)
+export const useUserContext = () => useContext(UserContext);
