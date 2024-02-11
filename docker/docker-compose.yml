@@ -21,6 +21,7 @@ services:
       - VITE_SERVER_EXPRESS_URI=${VITE_SERVER_EXPRESS_URI}
       - SERVER_URI=${SERVER_URI}
       - MONGO_DB_URI=${MONGO_DB_URI}
+      - JWT_SECRET=${JWT_SECRET}
   mongo:
     image: mongo:latest
     container_name: ${APP_NAME}-MONGO-${ENV}-CONTAINER
