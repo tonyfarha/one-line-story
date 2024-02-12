@@ -17,6 +17,8 @@ export const StoryContextProvider = () => {
 
     const updateStory = (id, storyData) => apiRequest(`${END_POINT}/${id}`, 'PUT', storyData, setIsLoading);
 
+    const addSentence = (id, sentence) => apiRequest(`${END_POINT}/add-sentence/${id}`, 'PUT', sentence, setIsLoading);
+
     const deleteStory = id => apiRequest(`${END_POINT}/${id}`, 'DELETE', null, setIsLoading);
 
     const contextData = {
@@ -25,6 +27,7 @@ export const StoryContextProvider = () => {
         getStory,
         getStories,
         updateStory,
+        addSentence,
         deleteStory
     }
 

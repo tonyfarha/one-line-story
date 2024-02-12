@@ -9,6 +9,8 @@ import { useStoryContext } from "../../contexts";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { ConfirmDialog } from '../../components/ConfirmDialog';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import EditNoteIcon from '@mui/icons-material/EditNote';
 
 export const Stories = () => {
     const [stories, setStories] = useState([]);
@@ -66,9 +68,9 @@ export const Stories = () => {
             field: "actions",
             headerName: "Actions",
             flex: 1,
-            renderCell: ({ row: { _id } }) => {
+            renderCell: ({ row: { _id, status } }) => {
                 return (
-                    <ActionsCell rowItemId={_id} confirm={confirmDeletion} />
+                    <ActionsCell rowItemId={_id} confirm={confirmDeletion} completed={status === 'completed'} />
                 );
             },
         },
@@ -120,7 +122,7 @@ export const Stories = () => {
 };
 
 
-const ActionsCell = ({ rowItemId, confirm }) => {
+const ActionsCell = ({ rowItemId, confirm, completed }) => {
     const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false);
     const navigate = useNavigate();
 
@@ -130,13 +132,33 @@ const ActionsCell = ({ rowItemId, confirm }) => {
                 display="flex"
                 gap="10px"
             >
-                <Tooltip title="Edit">
+                <Tooltip title="View">
                     <IconButton onClick={(e) => {
                         e.stopPropagation();
-                        navigate(`/stories/${rowItemId}`);
-                    }} aria-label="edit">
-                        <EditIcon />
+                        navigate(`/stories/view/${rowItemId}`);
+                    }} aria-label="view">
+                        <VisibilityIcon />
                     </IconButton>
+                </Tooltip>
+                <Tooltip title="View">
+                    <span>
+                        <IconButton disabled={completed} onClick={(e) => {
+                            e.stopPropagation();
+                            navigate(`/stories/add-sentence/${rowItemId}`);
+                        }} aria-label="view">
+                            <EditNoteIcon />
+                        </IconButton>
+                    </span>
+                </Tooltip>
+                <Tooltip title="Edit">
+                    <span>
+                        <IconButton disabled onClick={(e) => {
+                            e.stopPropagation();
+                            navigate(`/stories/${rowItemId}`);
+                        }} aria-label="edit">
+                            <EditIcon />
+                        </IconButton>
+                    </span>
                 </Tooltip>
                 <Tooltip title="Delete">
                     <IconButton onClick={(e) => {

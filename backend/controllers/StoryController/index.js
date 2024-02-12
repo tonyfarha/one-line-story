@@ -35,7 +35,7 @@ export const createStory = asyncHandler(async (req, res) => {
 // @access  Private
 export const getStories = asyncHandler(async (req, res) => {
 
-    const stories = await Story.find({}).populate({ path: 'createdFrom', select: 'firstname lastname'});
+    const stories = await Story.find({}).populate({ path: 'createdFrom', select: 'firstname lastname' });
 
     if (stories) {
         return res.status(200).json(stories);
@@ -54,7 +54,9 @@ export const getStory = asyncHandler(async (req, res) => {
 
     if (!id) return res.status(400).json({});
 
-    const story = await Story.findById(id);
+    const story = await Story.findById(id).populate({
+        path: 'sentences.createdFrom',
+    });
 
     if (!story) {
         return res.status(400).json({ msg: "Story doesn't exist" });
@@ -111,6 +113,9 @@ export const deleteStory = asyncHandler(async (req, res) => {
 
 })
 
+// @desc    Add a sentence to story
+// @route   PUT /api/v1/stories/add-sentence/:id
+// @access  Private
 export const addSentence = asyncHandler(async (req, res) => {
     const { sentence } = req.body;
 
@@ -142,7 +147,7 @@ export const addSentence = asyncHandler(async (req, res) => {
 
     let newStatus = story.status;
 
-    if(newSentences.length === story.amountOfSentences) {
+    if (newSentences.length === story.amountOfSentences) {
         newStatus = 'completed';
     }
 
@@ -154,7 +159,7 @@ export const addSentence = asyncHandler(async (req, res) => {
 
     if (updated) {
 
-        if(newStatus === 'completed') {
+        if (newStatus === 'completed') {
             //! TODO: emmit changes to all users
         }
 

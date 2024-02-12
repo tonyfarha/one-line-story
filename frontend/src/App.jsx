@@ -8,7 +8,7 @@ import { StoryContextProvider, UserContextProvider, useAuthContext } from "./con
 import { NotFound } from "./pages/NotFound";
 import { Login } from "./pages";
 import { EditUser, NewUser, Users } from "./pages/users";
-import { EditStory, Stories } from "./pages/stories";
+import { EditStory, Stories, AddSentence } from "./pages/stories";
 import { NewStory } from "./pages/stories/NewStory";
 
 function App() {
@@ -35,6 +35,8 @@ function App() {
                                     <Route path="/stories" element={<Stories />} />
                                     <Route path="/stories/new" element={<NewStory />} />
                                     <Route path="/stories/:id" element={<EditStory />} />
+                                    <Route path="/stories/view/:id" element={<></>} />
+                                    <Route path="/stories/add-sentence/:id" element={<AddSentence />} />
                                 </Route>
 
                                 <Route element={<AdminRoutes />}>
