@@ -11,7 +11,7 @@ export const StoryContextProvider = () => {
 
     const createStory = storyData => apiRequest(END_POINT, 'POST', storyData, setIsLoading);
 
-    const getStories = () => apiRequest(END_POINT, 'GET', null, setIsLoading);
+    const getStories = storiesStatus => apiRequest(`${END_POINT}?status=${storiesStatus}`, 'GET', null, setIsLoading);
 
     const getStory = id => apiRequest(`${END_POINT}/${id}`, 'GET', null, setIsLoading);
 

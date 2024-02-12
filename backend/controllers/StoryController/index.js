@@ -39,7 +39,8 @@ export const createStory = asyncHandler(async (req, res) => {
 // @access  Private
 export const getStories = asyncHandler(async (req, res) => {
 
-    const stories = await Story.find({}).populate({ path: 'createdFrom', select: 'firstname lastname' });
+    const status = req.query.status || 'ongoing';
+    const stories = await Story.find({ status }).populate({ path: 'createdFrom', select: 'firstname lastname' });
 
     if (stories) {
         return res.status(200).json(stories);

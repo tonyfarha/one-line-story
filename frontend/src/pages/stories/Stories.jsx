@@ -12,9 +12,12 @@ import { ConfirmDialog } from '../../components/ConfirmDialog';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import EditNoteIcon from '@mui/icons-material/EditNote';
 import { socket } from '../../socket';
+import ToggleButton from '@mui/material/ToggleButton';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 
 export const Stories = () => {
     const [stories, setStories] = useState([]);
+    const [storiesStatus, setStoriesStatus] = useState('ongoing');
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     const navigate = useNavigate();
@@ -30,10 +33,10 @@ export const Stories = () => {
             socket.off('refresh-stories', initStories);
         }
 
-    }, [])
+    }, [storiesStatus])
 
     const initStories = async () => {
-        const storiesRes = await getStories();
+        const storiesRes = await getStories(storiesStatus);
         setStories(storiesRes.map(story => ({ ...story, id: story._id })))
     }
 
@@ -89,7 +92,17 @@ export const Stories = () => {
         <>
             <Box m="20px">
                 <Header title="STORIES" subtitle="Managing the stories" />
-                <Box display={"flex"} justifyContent={"flex-end"}>
+                <Box display={"flex"} justifyContent={"space-between"}>
+                    <ToggleButtonGroup
+                        color="primary"
+                        value={storiesStatus}
+                        exclusive
+                        onChange={(e) => {setStoriesStatus(e.target.value)}}
+                        aria-label="Platform"
+                    >
+                        <ToggleButton value="ongoing">Ongoing</ToggleButton>
+                        <ToggleButton value="completed">Completed</ToggleButton>
+                    </ToggleButtonGroup>
                     <Button onClick={() => navigate('/stories/new')} color="primary" variant="contained" startIcon={<Add />}>
                         Add New
                     </Button>
