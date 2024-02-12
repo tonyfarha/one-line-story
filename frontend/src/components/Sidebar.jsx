@@ -127,13 +127,13 @@ const Sidebar = () => {
           )}
 
           <Box>
-            <Typography
+            {/* <Typography
               variant="h6"
               color={colors.grey[300]}
               sx={{ m: "15px 0 5px 20px" }}
             >
               Stories
-            </Typography>
+            </Typography> */}
 
             <Item
               title="Stories"
@@ -144,14 +144,6 @@ const Sidebar = () => {
             />
             {isAdmin && (
               <>
-                <Typography
-                  variant="h6"
-                  color={colors.grey[300]}
-                  sx={{ m: "15px 0 5px 20px" }}
-                >
-                  System
-                </Typography>
-
                 <Item
                   title="Users"
                   to="/users"

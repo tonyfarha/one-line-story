@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Box, useTheme, Button, IconButton, Tooltip } from "@mui/material";
 import { Add } from '@mui/icons-material';
-import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import Header from "../../components/Header";
 import { useNavigate } from 'react-router-dom'
@@ -123,7 +123,7 @@ export const Stories = () => {
                         },
                     }}
                 >
-                    <DataGrid checkboxSelection rows={stories} columns={columns} components={{ Toolbar: GridToolbar }} />
+                    <DataGrid rows={stories} columns={columns} />
                 </Box>
             </Box>
         </>
