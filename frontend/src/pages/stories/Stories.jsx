@@ -11,6 +11,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import { ConfirmDialog } from '../../components/ConfirmDialog';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import EditNoteIcon from '@mui/icons-material/EditNote';
+import { socket } from '../../socket';
 
 export const Stories = () => {
     const [stories, setStories] = useState([]);
@@ -20,7 +21,15 @@ export const Stories = () => {
     const { getStories, deleteStory } = useStoryContext();
 
     useEffect(() => {
+
         initStories();
+
+        socket.on('refresh-stories', initStories);
+
+        return () => {
+            socket.off('refresh-stories', initStories);
+        }
+
     }, [])
 
     const initStories = async () => {

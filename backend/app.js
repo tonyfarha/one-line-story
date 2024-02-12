@@ -5,11 +5,13 @@ import { connectDB } from './config/mongodb/index.js';
 import { errorHandler } from './middlewares/ErrorHandlerMiddleware.js';
 import { apiRouter } from './routes/index.js';
 import cors from 'cors';
+import { Server } from 'socket.io'
 
 await connectDB();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const SOCKET_IO_PORT = process.env.SOCKET_IO_PORT;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
@@ -32,4 +34,10 @@ app.get('/', (req, res) => {
 
 app.listen(PORT, () => {
     console.log(`⚡Server is running on port ${PORT}`);
+})
+
+export const io = new Server(SOCKET_IO_PORT, {
+    cors: {
+        origin: "*"
+    }
 })

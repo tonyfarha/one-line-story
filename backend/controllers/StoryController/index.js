@@ -1,5 +1,6 @@
 import asyncHandler from "express-async-handler";
 import { Story } from "../../models/StoryModel.js";
+import { io } from "../../app.js";
 
 // @desc    Create new story
 // @route   POST /api/v1/stories
@@ -167,7 +168,7 @@ export const addSentence = asyncHandler(async (req, res) => {
     if (updated) {
 
         if (newStatus === 'completed') {
-            //! TODO: emmit changes to all users
+            io.emit('refresh-stories');
         }
 
         return res.status(200).json({ msg: 'Your sentence has been added successfully' });

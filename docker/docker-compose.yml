@@ -9,6 +9,7 @@ services:
     ports:
       - "${PORT}:${PORT}"
       - "${FRONT_END_PORT}:${FRONT_END_PORT}"
+      - "${SOCKET_IO_PORT}:${SOCKET_IO_PORT}"
     volumes:
       - ../:/app
     depends_on:
@@ -22,6 +23,8 @@ services:
       - SERVER_URI=${SERVER_URI}
       - MONGO_DB_URI=${MONGO_DB_URI}
       - JWT_SECRET=${JWT_SECRET}
+      - SOCKET_IO_PORT=${SOCKET_IO_PORT}
+      - VITE_SERVER_SOCKET_URI=${VITE_SERVER_SOCKET_URI}
   mongo:
     image: mongo:latest
     container_name: ${APP_NAME}-MONGO-${ENV}-CONTAINER
