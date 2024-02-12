@@ -141,24 +141,29 @@ const ActionsCell = ({ rowItemId, confirm, completed }) => {
                 display="flex"
                 gap="10px"
             >
-                <Tooltip title="View">
-                    <IconButton onClick={(e) => {
-                        e.stopPropagation();
-                        navigate(`/stories/view/${rowItemId}`);
-                    }} aria-label="view">
-                        <VisibilityIcon />
-                    </IconButton>
-                </Tooltip>
-                <Tooltip title="Add Sentence">
-                    <span>
-                        <IconButton disabled={completed} onClick={(e) => {
+                {completed && (
+                    <Tooltip title="View">
+                        <IconButton onClick={(e) => {
                             e.stopPropagation();
-                            navigate(`/stories/add-sentence/${rowItemId}`);
+                            navigate(`/stories/view/${rowItemId}`);
                         }} aria-label="view">
-                            <EditNoteIcon />
+                            <VisibilityIcon />
                         </IconButton>
-                    </span>
-                </Tooltip>
+                    </Tooltip>
+                )
+                }
+                {!completed && (
+                    <Tooltip title="Add Sentence">
+                        <span>
+                            <IconButton disabled={completed} onClick={(e) => {
+                                e.stopPropagation();
+                                navigate(`/stories/add-sentence/${rowItemId}`);
+                            }} aria-label="view">
+                                <EditNoteIcon />
+                            </IconButton>
+                        </span>
+                    </Tooltip>
+                )}
                 <Tooltip title="Edit">
                     <span>
                         <IconButton disabled={completed} onClick={(e) => {

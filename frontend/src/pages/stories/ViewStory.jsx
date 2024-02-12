@@ -2,13 +2,13 @@ import { useEffect, useState } from 'react';
 import { Box, useTheme } from "@mui/material";
 import Header from "../../components/Header";
 import { useAuthContext, useStoryContext } from "../../contexts";
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { NewSentenceInput, Sentences } from '../../components';
 import { tokens } from "../../theme";
 import Alert from '@mui/material/Alert';
 import { socket } from '../../socket';
 
-export const AddSentence = () => {
+export const ViewStory = () => {
 
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
@@ -52,7 +52,7 @@ export const AddSentence = () => {
             <Box display={'flex'} flexDirection={'column'} gap={3}>
                 {
                     story.status === 'completed' && (
-                        <Alert style={{ width: '100%', maxWidth: '700px', margin: '0 auto' }} severity="info">The story is finished. No further additions are possible.</Alert>
+                        <Alert style={{ width: '100%', maxWidth: '700px', margin: '0 auto' }} severity="info">The story is completed. No further additions are possible.</Alert>
                     )
                 }
                 <Sentences story={story} isLoading={isLoading} />
