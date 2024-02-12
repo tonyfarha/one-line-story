@@ -149,7 +149,7 @@ const ActionsCell = ({ rowItemId, confirm, completed }) => {
                         <VisibilityIcon />
                     </IconButton>
                 </Tooltip>
-                <Tooltip title="View">
+                <Tooltip title="Add Sentence">
                     <span>
                         <IconButton disabled={completed} onClick={(e) => {
                             e.stopPropagation();
@@ -161,7 +161,7 @@ const ActionsCell = ({ rowItemId, confirm, completed }) => {
                 </Tooltip>
                 <Tooltip title="Edit">
                     <span>
-                        <IconButton disabled onClick={(e) => {
+                        <IconButton disabled={completed} onClick={(e) => {
                             e.stopPropagation();
                             navigate(`/stories/${rowItemId}`);
                         }} aria-label="edit">

@@ -18,6 +18,7 @@ export const createStory = asyncHandler(async (req, res) => {
 
     // Create story
     const story = await Story.create({
+        sid: Date.now(),
         title,
         amountOfSentences,
         topic,
@@ -25,6 +26,7 @@ export const createStory = asyncHandler(async (req, res) => {
     });
 
     if (story) {
+        io.sockets.emit('refresh-stories');
         return res.status(201).json({ msg: 'Story created successfully' });
     } else {
         return res.status(400).json({ msg: 'Invalid story data' });
@@ -141,7 +143,7 @@ export const addSentence = asyncHandler(async (req, res) => {
     }
 
     const lastSentence = story.sentences.slice(-1)[0];
-    if (lastSentence.createdFrom.id === req.user.id) {
+    if (lastSentence && lastSentence.createdFrom.id === req.user.id) {
         return res.status(400).json({ msg: 'Adding multiple sentences in a row is not allowed' });
     }
 
@@ -168,8 +170,10 @@ export const addSentence = asyncHandler(async (req, res) => {
     if (updated) {
 
         if (newStatus === 'completed') {
-            io.emit('refresh-stories');
+            io.sockets.emit('refresh-stories');
         }
+
+        io.sockets.emit(`refresh${story.sid}`);
 
         return res.status(200).json({ msg: 'Your sentence has been added successfully' });
     } else {

@@ -19,6 +19,11 @@ const sentenceSchema = Schema(
 
 const storySchema = Schema(
     {
+        sid: {
+            type: String,
+            required: [true, 'Please add am sid'],
+            unique: true
+        },
         title: {
             type: String,
             required: [true, 'Please add a title to the story'],

@@ -6,6 +6,7 @@ import { Link, useParams } from 'react-router-dom';
 import { NewSentenceInput, Sentences } from '../../components';
 import { tokens } from "../../theme";
 import Alert from '@mui/material/Alert';
+import { socket } from '../../socket';
 
 export const AddSentence = () => {
 
@@ -18,8 +19,20 @@ export const AddSentence = () => {
     const { id } = useParams();
 
     useEffect(() => {
-        initStory();
-    }, [])
+
+        if (story.sid) {
+            socket.on(`refresh${story.sid}`, initStory);
+        } else {
+            initStory();
+        }
+
+        return () => {
+            if (story.sid) {
+                socket.off(`refresh${story.sid}`, initStory);
+            }
+        }
+
+    }, [story])
 
     const initStory = async () => {
         const story = await getStory(id);
