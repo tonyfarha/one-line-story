@@ -39,7 +39,7 @@ export const NewSentenceInput = ({ id, completed, initStory, disabledInput }) =>
           disabled={completed || sentence.trim() === '' || disabledInput}
           onClick={handleAddSentence}
         >
-          Send
+          Submit
         </Button>
       </Box>
     </Box>

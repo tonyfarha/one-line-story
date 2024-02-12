@@ -1,6 +1,7 @@
 import asyncHandler from "express-async-handler";
 import { Story } from "../../models/StoryModel.js";
 import { io } from "../../app.js";
+import { getRandomSentence } from "./helper-functions.js";
 
 // @desc    Create new story
 // @route   POST /api/v1/stories
@@ -60,6 +61,16 @@ export const getStory = asyncHandler(async (req, res) => {
     const story = await Story.findById(id).populate({
         path: 'sentences.createdFrom',
     });
+    
+    for (let i = 0; i < story.sentences.length - 1; i++) {
+        
+        const sentence = story.sentences[i];
+
+        if((sentence.createdFrom.id !== req.user.id) && story.status !== 'completed') {
+            sentence.content = 'Nice try! ' + getRandomSentence();
+        }
+        
+    }
 
     if (!story) {
         return res.status(400).json({ msg: "Story doesn't exist" });
@@ -111,6 +122,8 @@ export const deleteStory = asyncHandler(async (req, res) => {
     if (!id) return res.status(400).json({});
 
     await Story.deleteOne({ _id: id });
+
+    io.sockets.emit('refresh-stories');
 
     return res.status(200).json({ msg: 'Story deleted successfully' });
 

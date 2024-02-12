@@ -48,11 +48,11 @@ export const AddSentence = () => {
 
     return (
         <Box m="20px">
-            <Header title={story.title} subtitle={`${story.topic || 'Add sentence'}`} />
+            <Header title={story.title} subtitle={`${story.topic || 'View Story'}`} />
             <Box display={'flex'} flexDirection={'column'} gap={3}>
                 {
                     story.status === 'completed' && (
-                        <Alert style={{ width: '100%', maxWidth: '700px', margin: '0 auto' }} severity="info">The story is finished. No further additions are possible. View the complete story <Link style={{ color: colors.redAccent[400] }} to={`/stories/view/${story._id}`}>here</Link></Alert>
+                        <Alert style={{ width: '100%', maxWidth: '700px', margin: '0 auto' }} severity="info">The story is finished. No further additions are possible.</Alert>
                     )
                 }
                 <Sentences story={story} isLoading={isLoading} />
