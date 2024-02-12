@@ -127,7 +127,9 @@ export const addSentence = asyncHandler(async (req, res) => {
 
     if (!id) return res.status(400).json({});
 
-    const story = await Story.findById(id);
+    const story = await Story.findById(id).populate({
+        path: 'sentences.createdFrom',
+    });
 
     if (!story) {
         return res.status(400).json({ msg: "Story doesn't exist" });
@@ -135,6 +137,11 @@ export const addSentence = asyncHandler(async (req, res) => {
 
     if (story.sentences.length === story.amountOfSentences) {
         return res.status(400).json({ msg: 'You have exceeded the max amount of sentences' });
+    }
+
+    const lastSentence = story.sentences.slice(-1)[0];
+    if (lastSentence.createdFrom.id === req.user.id) {
+        return res.status(400).json({ msg: 'Adding multiple sentences in a row is not allowed' });
     }
 
     const newSentences = [

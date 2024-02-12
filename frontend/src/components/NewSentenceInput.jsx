@@ -3,7 +3,7 @@ import SendIcon from '@mui/icons-material/Send';
 import { useState } from "react";
 import { useStoryContext } from "../contexts";
 
-export const NewSentenceInput = ({ id, complted, initStory }) => {
+export const NewSentenceInput = ({ id, completed, initStory, disabledInput }) => {
 
   const [sentence, setSentence] = useState('');
   const { addSentence } = useStoryContext();
@@ -27,7 +27,7 @@ export const NewSentenceInput = ({ id, complted, initStory }) => {
           multiline
           maxRows={3}
           placeholder='Write your sentence here...'
-          disabled={complted}
+          disabled={completed || disabledInput}
           value={sentence}
           onChange={e => setSentence(e.target.value)}
         />
@@ -36,7 +36,7 @@ export const NewSentenceInput = ({ id, complted, initStory }) => {
         <Button
           variant="outlined"
           endIcon={<SendIcon />}
-          disabled={complted || sentence.trim() === ''}
+          disabled={completed || sentence.trim() === '' || disabledInput}
           onClick={handleAddSentence}
         >
           Send

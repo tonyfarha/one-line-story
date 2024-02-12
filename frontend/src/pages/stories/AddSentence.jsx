@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Box, useTheme } from "@mui/material";
 import Header from "../../components/Header";
-import { useStoryContext } from "../../contexts";
+import { useAuthContext, useStoryContext } from "../../contexts";
 import { Link, useParams } from 'react-router-dom';
 import { NewSentenceInput, Sentences } from '../../components';
 import { tokens } from "../../theme";
@@ -14,6 +14,7 @@ export const AddSentence = () => {
 
     const [story, setStory] = useState({});
     const { getStory, isLoading } = useStoryContext();
+    const { user } = useAuthContext();
     const { id } = useParams();
 
     useEffect(() => {
@@ -23,6 +24,13 @@ export const AddSentence = () => {
     const initStory = async () => {
         const story = await getStory(id);
         setStory(story);
+    }
+
+    const userHasWrittenLastSentence = () => {
+        if(story && story?.sentences?.length > 0) {
+            const lastSentence = story?.sentences?.slice(-1)[0];
+            return lastSentence.createdFrom._id === user._id;
+        }
     }
 
     return (
@@ -35,7 +43,7 @@ export const AddSentence = () => {
                     )
                 }
                 <Sentences story={story} isLoading={isLoading} />
-                <NewSentenceInput id={story._id} complted={story.status === 'completed'} initStory={initStory} />
+                <NewSentenceInput id={story._id} completed={story.status === 'completed'} initStory={initStory} disabledInput={userHasWrittenLastSentence()} />
             </Box>
         </Box>
     );
