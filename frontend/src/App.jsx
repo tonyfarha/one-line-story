@@ -29,9 +29,8 @@ function App() {
 
                             <Route element={<Protect />}>
 
-                                <Route path="/" element={<></>} />
-
-                                <Route path="stories" element={<StoryContextProvider />}>
+                                <Route element={<StoryContextProvider />}>
+                                    <Route path="/" element={<Stories />} />
                                     <Route path="/stories" element={<Stories />} />
                                     <Route path="/stories/new" element={<NewStory />} />
                                     <Route path="/stories/:id" element={<EditStory />} />
