@@ -139,7 +139,7 @@ export const loginUser = asyncHandler(async (req, res) => {
 
     if (user && (await bcrypt.compare(password, user.password))) {
         return res.json({
-            // _id: user.id,
+            _id: user.id,
             firstname: user.firstname,
             lastname: user.lastname,
             name: `${user.firstname} ${user.lastname}`,
