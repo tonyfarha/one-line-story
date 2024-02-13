@@ -26,6 +26,7 @@ To set up and run this app, follow these steps:
 This app has been tested on the following platforms:
 
 - Windows Subsystem for Linux (WSL)
+- Linux
 
 ## Initial Mock Users
 
